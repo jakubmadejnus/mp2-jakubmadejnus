@@ -38,4 +38,25 @@ Tags:
 from typing import List
 
 def count_rotations(arr: List[int]) -> int:
-  return -1
+    if not arr:
+        return 0
+
+    start, end = 0, len(arr) - 1
+
+    if arr[start] < arr[end]:
+        return 0
+
+    while start <= end:
+        mid = start + (end - start) // 2
+
+        if arr[mid] > arr[mid + 1] if mid < len(arr) - 1 else False:
+            return mid + 1
+        if arr[mid - 1] > arr[mid] if mid > 0 else False:
+            return mid
+
+        if arr[start] <= arr[mid]: 
+            start = mid + 1
+        else:
+            end = mid - 1
+
+    return 0 

@@ -40,4 +40,15 @@ Tags:
 from typing import List
 
 def h_index(citations: List[int]) -> int:
-    return 0
+
+    if len(citations) == 0:
+        return 0
+
+    # sort
+    citations.sort()
+    citations.reverse()
+
+    for i in range(len(citations)):
+        if i+1 >= citations[i]:
+            return citations[i]
+    return(len(citations))

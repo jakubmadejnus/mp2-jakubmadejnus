@@ -35,4 +35,15 @@ Tags:
 from typing import List
 
 def verify_preorder(preorder: List[int]) -> bool:
+    stack = []
+    lower = float('-inf')
+
+    for value in preorder:
+        if value < lower:
+            return False
+
+        while stack and value > stack[-1]:
+            lower = stack.pop()
+
+        stack.append(value)
     return True

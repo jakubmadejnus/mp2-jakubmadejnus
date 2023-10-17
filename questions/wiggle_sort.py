@@ -40,5 +40,16 @@ Tags:
 
 from typing import List
 
-def wiggleSort(nums: List[int]) -> None:
-    return
+def wiggleSort(nums: List[int]) -> List[int]:
+
+    n = len(nums) - 1
+
+    for i in range(n):
+        if (i % 2 == 0):
+            if nums[i] > nums[i+1]:
+                nums[i], nums[i+1] = nums[i+1], nums[i]
+        else:
+            if nums[i] < nums[i+1]:
+                nums[i], nums[i+1] = nums[i+1], nums[i]
+ 
+    return nums

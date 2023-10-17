@@ -27,6 +27,17 @@ Tags:
 """
 
 from typing import List
+import heapq
 
 def find_sum_between_elements(nums: List[int], k1: int, k2: int) -> int:
-    return -1
+    
+   k_smallest_numbers = heapq.nsmallest(k2, set(nums))
+
+   if len(k_smallest_numbers) >= k2:
+        k1_val, k2_val = k_smallest_numbers[k1 - 1], k_smallest_numbers[k2 - 1]
+   else:
+        return 0
+   
+   sum_between = sum(num for num in nums if k1_val < num < k2_val)
+
+   return sum_between

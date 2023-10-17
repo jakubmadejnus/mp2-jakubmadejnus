@@ -2,7 +2,8 @@
 Problem: Glass Towers
 
 Description:
-Given a champagne tower with glasses stacked in a pyramid, where the first row has 1 glass, the second row has 2 glasses, and so on up to the 100th row. Each glass can hold exactly one cup of champagne. When champagne is poured onto the topmost glass, if it overflows, the excess champagne is equally distributed to the glasses immediately to its left and right. If a glass on the bottom row overflows, the excess champagne is lost.
+Given a champagne tower with glasses stacked in a pyramid, where the first row has 1 glass, the second row has 2 glasses, and so on up to the 100th row. 
+Each glass can hold exactly one cup of champagne. When champagne is poured onto the topmost glass, if it overflows, the excess champagne is equally distributed to the glasses immediately to its left and right. If a glass on the bottom row overflows, the excess champagne is lost.
 
 Determine the volume of champagne in a particular glass after pouring a certain number of cups into the top of the tower.
 
@@ -39,4 +40,20 @@ Tags:
 """
 
 def glass_tower(poured: int, query_row: int, query_glass: int) -> float:
-    return 0.0
+
+    glasses = [[0] * k for k in range(1, 102)]
+
+    glasses[0][0] = poured
+
+    for row in range(100):  # Up to the 100th row
+        for col in range(row + 1):  # Each glass in the row
+            overflow = max(0, glasses[row][col] - 1)  # Calculate the overflow
+            if overflow > 0:
+                # Distribute the overflow equally to the glasses diagonally below
+                glasses[row + 1][col] += overflow / 2
+                glasses[row + 1][col + 1] += overflow / 2
+                # Adjust the current glass's volume
+                glasses[row][col] = 1  # Current glass is full
+
+    volume = min(1, max(0, glasses[query_row][query_glass]))
+    return round(volume, 5)

@@ -2,7 +2,8 @@
 Problem: Implement Heapify for MinHeap
 
 Description:
-Implement the heapify method for the `MinHeap` class. This method should transform an arbitrary array into a valid min heap, ensuring the smallest element is at the root and both the left and right children of any node are larger than the node.
+Implement the heapify method for the `MinHeap` class. 
+This method should transform an arbitrary array into a valid min heap, ensuring the smallest element is at the root and both the left and right children of any node are larger than the node.
 
 Function Signature:
 def heapify(self) -> None:
@@ -35,6 +36,31 @@ Tags:
 class MinHeap:
     def __init__(self, arr=None):
         self.heap = arr or []
+        self.heapify()  # Calling heapify upon initialization
+
+    def sift_down(self, n, idx):
+        smallest = idx
+        left = 2 * idx + 1
+        right = 2 * idx + 2
+
+        # Check if the left child exists and is less than the current smallest
+        if left < n and self.heap[left] < self.heap[smallest]:
+            smallest = left
+
+        # Check if the right child exists and is less than the current smallest
+        if right < n and self.heap[right] < self.heap[smallest]:
+            smallest = right
+
+        # If the smallest is not the current node, swap and continue sifting down
+        if smallest != idx:
+            self.heap[idx], self.heap[smallest] = self.heap[smallest], self.heap[idx]
+            self.sift_down(n, smallest)
 
     def heapify(self):
-        pass
+        # Last non-leaf node (parent of the last element) is at (n//2) - 1
+        start_idx = len(self.heap) // 2 - 1
+
+        # Go up the heap, ensuring min-heap property is maintained
+        for i in range(start_idx, -1, -1):
+            self.sift_down(len(self.heap), i)
+

@@ -34,4 +34,30 @@ Notes:
 from typing import List
 
 def search_rotated_array(nums: List[int], key: int) -> int:
-    return 0
+
+    low = 0
+    high = len(nums) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        # Check if mid is the key
+        if nums[mid] == key:
+            return mid
+
+        # If left side is sorted
+        if nums[low] <= nums[mid]:
+            # Key is within the left sorted range
+            if nums[low] <= key <= nums[mid]:
+                high = mid - 1
+            else:
+                low = mid + 1
+                
+        else:
+            # Key is within the right sorted range
+            if nums[mid] <= key <= nums[high]:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+    return -1

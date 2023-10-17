@@ -5,7 +5,7 @@ import time
 def test_sort_array():
     start_time = time.time()
 
-    assert sortArray([5,2,3,1]) == [1,2,3,5]
+    assert sortArray([5,2,3,1]) == [1, 2, 3, 5]
     assert sortArray([5,1,1,2,0,0]) == [0,0,1,1,2,5]
     assert sortArray([]) == []
     assert sortArray([1]) == [1]

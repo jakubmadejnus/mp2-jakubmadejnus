@@ -33,4 +33,13 @@ Tags:
 from typing import List
 
 def find_Kth_smallest(nums: List[int], k: int) -> int:
-    return -1
+    
+   heapq.heapify(nums)
+
+    # Pop elements from the heap until we reach the k-th smallest.
+    # The heap property guarantees that we always pop the smallest element.
+   for _ in range(k - 1):
+      heapq.heappop(nums)
+
+    # The root of the heap is now the k-th smallest element in the array.
+   return heapq.heappop(nums)

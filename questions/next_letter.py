@@ -2,7 +2,9 @@
 Problem: Find the Next Letter
 
 Description:
-Given an array of lowercase letters sorted in ascending order, determine the smallest letter in the given array greater than a specified 'key'. Assume the array is a circular list, which means that the last letter is assumed to be connected with the first letter. This implies that the smallest letter in the array is greater than the last letter of the array and is also the first letter of the array. Write a function to return the next letter of the given 'key'.
+Given an array of lowercase letters sorted in ascending order, determine the smallest letter in the given array greater than a specified 'key'. 
+Assume the array is a circular list, which means that the last letter is assumed to be connected with the first letter. 
+This implies that the smallest letter in the array is greater than the last letter of the array and is also the first letter of the array. Write a function to return the next letter of the given 'key'.
 
 Function Signature:
 def find_next_letter(letters: List[str], key: str) -> str:
@@ -45,4 +47,20 @@ Tags:
 from typing import List
 
 def find_next_letter(letters: List[str], key: str) -> str:
-  return ""
+  
+    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+    n = len(letters)
+    if key < letters[0] or key >= letters[-1]:
+        return letters[0]
+
+    start = 0
+    end = n - 1
+    while start <= end:
+        mid = start + (end - start) // 2
+        if letters[mid] > key:
+            end = mid - 1
+        else:  # letters[mid] <= key
+            start = mid + 1
+
+    return letters[start % n]

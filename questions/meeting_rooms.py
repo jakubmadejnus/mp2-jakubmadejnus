@@ -34,6 +34,28 @@ Tags:
 """
 
 from typing import List
+import heapq
 
 def minMeetingRooms(intervals: List[List[int]]) -> int:
-    return -1
+
+    if not intervals:
+        return 0
+
+    # Initialize a heap.
+    free_rooms = []
+
+    # sort intervals by start time
+    intervals.sort(key=lambda x: x[0])
+
+    # For all the remaining meeting rooms
+    for i in intervals:
+        
+        # If the current meeting's start time is greater than or equal to the earliest end time in the heap
+        if free_rooms and free_rooms[0] <= i[0]:
+            heapq.heappop(free_rooms)
+            
+        # Add the current meeting's ending time to the heap.
+        heapq.heappush(free_rooms, i[1])
+    
+    # The size of the heap tells us the minimum rooms required for all the meetings.
+    return len(free_rooms)
